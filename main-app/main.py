@@ -7,6 +7,8 @@ from icecream import ic
 
 from core import db_helper
 from core import setting
+
+from middleware import DatabaseMiddleware
 from routers import router
 
 dp = Dispatcher()
@@ -28,6 +30,8 @@ async def main():
     )
     dp.startup.register(on_startup)
     dp.shutdown.register(on_shutdown)
+
+    dp.update.middleware(DatabaseMiddleware())
 
     dp.include_router(router)
 
